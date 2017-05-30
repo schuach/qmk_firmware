@@ -57,6 +57,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
+/* Taps for layer-toggle */
+#define TAPPING_TOGGLE 2
+
+/* leader timeout */
+#define LEADER_TIMEOUT 500
+
 /* key combination for command */
 #define IS_COMMAND() ( \
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \

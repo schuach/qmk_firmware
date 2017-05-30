@@ -14,7 +14,7 @@
 #define N2_BTCK M(2)
 
 
-#define _AW 0   // AdNWzjßf
+#define _XOY 0   // AdNWzjßf
 #define _QW 1  // qwertz-layer (neo2 softcoded)
 #define _N3 2  // neo2 Ebene 3 hardcoded
 #define _N4 3  // neo2 Ebene 4 hardcoded
@@ -101,14 +101,13 @@
 #define N2_SCLN S(KC_COMM)
 #define N2_CLN  S(KC_DOT)
 
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_AW] = { /* AdNWzjßf */
+  [_XOY] = { /* AdNWzjßf */
   {LT(_SYS,KC_GRV),KC_1,   KC_2,      KC_3,    KC_4,   KC_5,    KC_6,    KC_7,           KC_8,    KC_9,    KC_0,    N2_MINS,      N2_GRAV, KC_NO,   KC_BSPC },
-  {KC_TAB,        KC_K,    KC_DOT,    KC_O,    KC_COMM,N2_Y,    KC_V,    KC_G,           KC_C,    KC_L,    N2_SZ,   LT(_NI,N2_Z), N2_AKUT, KC_INS,  KC_DEL  },
+  {KC_TAB,        KC_X,    KC_DOT,    KC_O,    KC_COMM,N2_Y,    KC_V,    KC_G,           KC_C,    KC_L,    KC_J,    N2_SZ,            N2_AKUT, KC_INS,  KC_DEL  },
   {CTL_T(KC_ESC), KC_H,    KC_A,      KC_E,    KC_I,   KC_U,    KC_D,    KC_T,           KC_R,    KC_N,    KC_S,    KC_F,         KC_ENT,  KC_NO,   KC_PGUP },
-  {KC_LSFT,       KC_X,    KC_Q,      N2_AE,   N2_UE,  N2_OE,   KC_B,    KC_P,           KC_W,    KC_M,    KC_J,    SFT_T(KC_ENT),KC_LEAD, KC_UP,   KC_PGDN },
-  {KC_LEAD,       MO(_NI), KC_LGUI,   ALT_T(N2_SZ),F(1),SFT_T(KC_DEL), LT(_N3,KC_BSPC),LT(_SP,KC_SPC), KC_NO,   KC_NO,   KC_HOME, KC_END,  KC_LEFT, KC_DOWN, KC_RGHT }
+  {KC_LSFT,       KC_K,    KC_Q,      N2_AE,   N2_UE,  N2_OE,   KC_B,    KC_P,           KC_W,    KC_M,    N2_Z,    SFT_T(KC_ENT),KC_LEAD, KC_UP,   KC_PGDN },
+  {KC_LEAD,       MO(_NI), KC_LGUI,   ALT_T(N2_SZ),TT(_N4),SFT_T(KC_DEL), LT(_N3,KC_BSPC),LT(_SP,KC_SPC), MO(_NI),  KC_NO,   KC_HOME, KC_END,  KC_LEFT, KC_DOWN, KC_RGHT }
 },
 [_QW] = { /* Qwerty/Software-Neo2 */
   {LT(_SYS,KC_GRV),KC_1,   KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,           KC_8,    KC_9,    KC_0,    N2_MINS,      N2_GRAV, KC_NO,   KC_BSPC },
@@ -139,7 +138,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,ALT_T(N2_SZ),KC_LGUI,  KC_END,  KC_HOME,      KC_NO,   KC_NO,   KC_NO }
 },
 [_SP] = { /* spacebar-layer */
-  {KC_TRNS, KC_NO, KC_NO,LCTL(KC_F3), KC_NO, LCTL(KC_F5), KC_NO, LCTL(KC_F7), LCTL(KC_F8), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO },
+    {KC_TRNS, KC_NO, KC_NO,LCTL(KC_F3),KC_NO,LCTL(KC_F5),LCTL(KC_F6), LCTL(KC_F7), LCTL(KC_F8), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO },
   {KC_TRNS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_NO,   KC_NO,   KC_BSPC, KC_PGDN, KC_PGUP, KC_DEL,  KC_NO,  KC_NO,   KC_NO,   KC_NO },
   {KC_TRNS, KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_TRNS, KC_HOME, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_END, KC_NO,   KC_NO,   KC_NO },
   {KC_TRNS, KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_TRNS, KC_TRNS, KC_TRNS, KC_BTN1, KC_WH_D, KC_WH_U, KC_BTN2,KC_NO,   KC_NO,   KC_NO },
@@ -148,9 +147,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_SYS] = { /* system keys */
   {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RESET },
-  {KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   RESET,   KC_NO,   KC_NO,   KC_NO  },
+  {KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO  },
   {KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO,   KC_NO,   KC_NO  },  
-  {KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   DF(_QW), KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO  },
+  {KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   DF(_QW), DF(_XOY),KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO  },
   {KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   LALT(LCTL(KC_DEL)) }
 },
 };
@@ -168,6 +167,17 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
       case 0:
         return MACRODOWN(TYPE(KC_T), END);
       break;
+      case 1:
+        // if-statement notwendig, weil sonst auch bei key-up das Makro aufgerufen wird.
+        if (record->event.pressed) {
+          return MACRO( T(GRV), T(SPC), END);
+        }
+        break;
+      case 2:
+        if (record->event.pressed) {
+          return MACRO(D(LSFS), T(EQL), U(LSFT), T(SPC), END);
+        }
+        break;
     } 
     return MACRO_NONE;
 
@@ -179,14 +189,15 @@ void matrix_scan_user(void) {
   LEADER_DICTIONARY() {
     leading = false;
     leader_end();
-
     SEQ_ONE_KEY(KC_P) {
+      // paste
       register_code(KC_LCTL);
       register_code(KC_V);
       unregister_code(KC_V);
       unregister_code(KC_LCTL);
     }
     SEQ_ONE_KEY(N2_Y) {
+      // copy
       register_code(KC_LCTL);
       register_code(KC_C);
       unregister_code(KC_C);
@@ -194,6 +205,7 @@ void matrix_scan_user(void) {
     }
 
     SEQ_TWO_KEYS(KC_D, KC_D) {
+      // cut whole line
       register_code(KC_HOME);
       unregister_code(KC_HOME);
       register_code(KC_LSFT);
@@ -205,11 +217,26 @@ void matrix_scan_user(void) {
       unregister_code(KC_X);
       unregister_code(KC_LCTL);
     }
+    SEQ_TWO_KEYS(KC_Z, KC_Z) {
+      // copy whole line (KC_Z is Y on german keyboards)
+      register_code(KC_HOME);
+      unregister_code(KC_HOME);
+      register_code(KC_LSFT);
+      register_code(KC_END);
+      unregister_code(KC_END);
+      unregister_code(KC_LSFT);
+      register_code(KC_LCTL);
+      register_code(KC_C);
+      unregister_code(KC_C);
+      unregister_code(KC_LCTL);
+    }
+
     SEQ_THREE_KEYS(KC_A, KC_S, KC_D) {
       register_code(KC_LGUI);
       register_code(KC_S);
       unregister_code(KC_S);
       unregister_code(KC_LGUI);
     }
+
   }
 }

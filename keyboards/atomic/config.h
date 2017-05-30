@@ -65,6 +65,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
+/* Taps for layer-toggle */
+#define TAPPING_TOGGLE 2
+
+/* leader timeout */
+#define LEADER_TIMEOUT 300
+
 /*
  * Force NKRO
  *
