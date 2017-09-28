@@ -4,13 +4,14 @@
 #include "keymap.h"
 #include "planck.h"
 #include "backlight.h"
+#include "action_layer.h"
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 
-#define _XOY 0   // AdNWzjßf
+#define _XOY 0   // AdNW_XOY
 #define _QW 1  // qwertz-layer (neo2 softcoded)
 #define _N3 2  // neo2 Ebene 3 hardcoded
 #define _N4 3  // neo2 Ebene 4 hardcoded
@@ -105,7 +106,7 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_XOY] = { /* XOY */
   {LT(_SYS,KC_TAB), KC_X,    KC_DOT,    KC_O,    KC_COMM,  N2_Y,          KC_V,           KC_G,           KC_C,    KC_L,    KC_J,  N2_SZ         },
-  {CTL_T(KC_ESC),   KC_H,    KC_A,      KC_E,    KC_I,     KC_U,          KC_D,           KC_T,           KC_R,    KC_N,    KC_S,  KC_F          },
+  {CTL_T(KC_ESC),   KC_H,    KC_A,      KC_E,    KC_I,     KC_U,          KC_D,           KC_T,           KC_R,    KC_N,    KC_S,  CTL_T(KC_F)   },
   {KC_LEAD,         KC_K,    KC_Q,      N2_AE,   N2_UE,    N2_OE,         KC_B,           KC_P,           KC_W,    KC_M,    N2_Z,  SFT_T(KC_ENT) },
   {KC_HOME,         KC_END,  KC_LGUI,   KC_LALT, TT(_N4),  SFT_T(KC_DEL), LT(_N3,KC_BSPC),LT(_SP,KC_SPC), LT(_KI,KC_LEFT), KC_DOWN, KC_UP, KC_RGHT       }
 },
@@ -142,8 +143,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_SYS] = { /* system keys */
   {KC_TRNS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   DF(_QW), KC_NO,   KC_P7, KC_P8,   KC_P9,   KC_NO,   RESET},
-  {KC_TRNS, KC_F5,   KC_F6,   KC_F7,   KC_F8,   DF(_XOY),KC_NO,   KC_P4, KC_P5,   KC_P6,   KC_NO,   KC_NO},  
-  {M(0),    KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NO,   KC_NO,   KC_P1, KC_P2,   KC_P3,   KC_NO,   KC_NO},
+  {KC_TRNS, KC_F5,   KC_F6,   KC_F7,   KC_F8,   DF(_XOY),KC_NO,   KC_P4, KC_P5,   KC_P6,   KC_NO,   KC_NO},
+  {BL_STEP, KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NO,   KC_NO,   KC_P1, KC_P2,   KC_P3,   KC_NO,   KC_NO},
   {KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_P0, KC_NO,   KC_NO,   KC_NO,   LALT(LCTL(KC_DEL)) }
 },
 };
@@ -161,11 +162,14 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
       case 0:
         if (record->event.pressed) {
           register_code(KC_RSFT);
+#ifdef BACKLIGHT_ENABLE
           backlight_step();
+#endif
         } else {
           unregister_code(KC_RSFT);
         }
-      break;
+        return false;
+        break;
       case 1:
         // if-statement notwendig, weil sonst auch bei key-up das Makro aufgerufen wird.
         if (record->event.pressed) {
