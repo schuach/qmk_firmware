@@ -11,10 +11,12 @@
 #define FN 4     // Function and Media Keys
 #define MDIA 5     // Media and Mouse
 
-// Dual role keys (LAYER_KC)
+// Dual role keys (LAYER_KC) and modified keys
 #define MDIA_Z LT(MDIA, DE_Z)
-#define FN_SPC LT(FN, KC_SPC)
 #define CTL_S  CTL_T(DE_S)
+#define ALT_SPC LALT(KC_SPC)
+#define ALT_TAB LALT(KC_TAB)
+#define SALT_TB S(LALT(KC_TAB))
 
 #define ______ KC_TRNS
 
@@ -29,11 +31,12 @@ enum custom_keycodes {
   RGB_SLD
 };
 
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * | Leader |   1  |   2  |   3  |   4  |   5  |  FN  |           |      |   6  |   7  |   8  |   9  |   0  |   -    |
+ * |        |   1  |   2  |   3  |   4  |   5  |  FN  |           | KRun |   6  |   7  |   8  |   9  |   0  |   -    |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * | Tab    |   X  |   .  |   O  |   ,  |   Y  |  (   |           |  *)  |   V  |   G  |   C  |   L  |   J  |   ß    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -41,40 +44,38 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|  [   |           |  *]  |------+------+------+------+------+--------|
  * | LShift |   K  |   Q  |   Ä  |   Ü  |   Ö  |      |           |      |   B  |   P  |   W  |   M  |MDIA/Z|RSft/Rtn|
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |   <  |   >  | Left | Right|                                       |*Down | *Up  |  *{  |  *}  |      |
+ *   |Leader|   <  |   >  | Left | Del  |                                       | Bspc | Left | Down |  Up  |Right |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        | lAlt | LGui |       | Alt  |Ctrl/Esc|
  *                                 ,------|------|------|       |------+--------+------.
  *                                 |      |      | Pgup |       | Home |        |      |
  *                                 | Mod4 | Lsft |------|       |------|  Mod3  | Spc  |
- *                                 |      | /del | Pgdn |       | End  |  /bspc | /FN  |
+ *                                 |      |      | Pgdn |       | End  |        |      |
  *                                 `--------------------'       `----------------------'
  */
-// If it accepts an argument (i.e, is a function), it doesn't need KC_.
-// Otherwise, it needs KC_*
   [XOY] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
-        KC_LEAD,      DE_1,    DE_2,    DE_3,    DE_4,    DE_5,    OSL(FN),
+        KC_NO,        DE_1,    DE_2,    DE_3,    DE_4,    DE_5,    OSL(FN),
         KC_TAB,       DE_X,    DE_DOT,  DE_O,    DE_COMM, DE_Y,    DE_LPRN,
         CTL_T(KC_ESC),DE_H,    DE_A,    DE_E,    DE_I,    DE_U,
         KC_LSFT,      DE_K,    DE_Q,    DE_AE,   DE_UE,   DE_OE,   DE_LBRC,
-        ______,       DE_LESS, DE_MORE, KC_LEFT, KC_RGHT,
+        KC_LEAD,      DE_LESS, DE_MORE, KC_LEFT, KC_DEL,
         // left thumb
                                                     OSM(MOD_LALT), KC_LGUI,
                                                                    KC_PGUP,
-                                          TT(MOD4), SFT_T(KC_DEL), KC_PGDN,
+                                            TT(MOD4),  KC_LSFT,    KC_PGDN,
 
         // right hand
-        ______,  DE_6,    DE_7,    DE_8,    DE_9,    DE_0,    DE_MINS,
+        ALT_SPC, DE_6,    DE_7,    DE_8,    DE_9,    DE_0,    DE_MINS,
         DE_RPRN, DE_V,    DE_G,    DE_C,    DE_L,    DE_J,    DE_SS,
                  DE_D,    DE_T,    DE_R,    DE_N,    CTL_S,   DE_F,
         DE_RBRC, DE_B,    DE_P,    DE_W,    DE_M,    MDIA_Z,  SFT_T(KC_ENT),
-                 KC_DOWN, KC_UP,   DE_LCBR, DE_RCBR, ______,
+                 KC_BSPC, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
         // right thumb
         OSM(MOD_RALT), CTL_T(KC_ESC),
         KC_HOME,
-        KC_END,  LT(MOD3, KC_BSPC),   FN_SPC
+        KC_END,        OSL(MOD3),   KC_SPC
 
     ),
 /* Keymap 1: QWERTZ
@@ -98,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
-  [QWERTZ] = LAYOUT_ergodox(  // layer 0 : default
+  [QWERTZ] = LAYOUT_ergodox(  // layer 1 : qwertz, should not be accessible from layer 0
         // left hand
         KC_LEAD,      DE_1,    DE_2,    DE_3,    DE_4,    DE_5,    ______,
         KC_TAB,       DE_X,    DE_DOT,  DE_O,    DE_COMM, DE_Y,    ______,
@@ -183,7 +184,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        |      |      |       |      |      |
  *                                 ,------|------|------|       |------+------+------.
  *                                 |      |      |      |       |      |      |      |
- *                                 |XXXXXX|      |------|       |------|      |      |
+ *                                 |XXXXXX|      |------|       |------|Space | Pad0 |
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
@@ -191,8 +192,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [MOD4] = LAYOUT_ergodox(
         // left hand
         ______,  ______,  ______,  ______,  ______,  ______,  ______,
-        ______,  KC_PGUP, KC_BSPC, KC_UP,   KC_DEL,  KC_PGDN, ______,
-        ______,  KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, KC_END,
+        ALT_TAB, KC_PGUP, KC_BSPC, KC_UP,   KC_DEL,  KC_PGDN, ______,
+        SALT_TB, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, KC_END,
         ______,  KC_ESC,  KC_TAB,  KC_INS,  KC_PENT, KC_UNDO, ______,
         ______,  ______,  ______,  ______,  ______,
         ______,  ______,
@@ -202,12 +203,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // right hand
         ______,  ______,  KC_PEQL, KC_PSLS, KC_PAST, KC_PMNS, ______,
         ______,  ______,  KC_P7,   KC_P8,   KC_P9,   KC_PPLS, ______,
-                 ______,  KC_4,    KC_P5,   KC_P6,   KC_PCMM, KC_PDOT,
+                 ______,  KC_4,    KC_P5,   KC_P6,   KC_COMM, KC_DOT,
         ______,  DE_COLN, KC_P1,   KC_P2,   KC_P3,   DE_SCLN, KC_PENT,
                           KC_P0,   ______,  ______,  ______,  ______,
         ______,  ______,
         ______,
-        ______,  ______,  ______
+        ______,  KC_SPC,  KC_P0
  ),
 /* Keymap 4: Function Keys
  *
@@ -226,7 +227,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        |Animat|      |       |Toggle|Solid |
  *                                 ,------|------|------|       |------+------+------.
  *                                 |Bright|Bright|      |       | Hue+ |      |      |
- *                                 |ness- |ness+ |------|       |------|      |XXXXXX|
+ *                                 |ness- |ness+ |------|       |------|      |      |
  *                                 |      |      |      |       | Hue- |      |      |
  *                                 `--------------------'       `--------------------'
  */
@@ -261,7 +262,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |WhlLft|MsLeft|MsDown|MsRght|WhlRgt|------|           |------|      |      |      |      |      |  Play  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |XXXXXX|WhlDn | Mclk |WhlUp |      |      |           |      |      |      | Prev | Next |      |        |
+ * |        |XXXXXX|WhlDn | Mclk |WhlUp |      |      |           |      |      |      | Prev | Next |XXXXXX|        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |      |      |      |      |      |                                       |VolUp |VolDn | Mute |      |      |
  *   `----------------------------------'                                       `----------------------------------'
@@ -375,12 +376,15 @@ void matrix_scan_user(void) {
     ergodox_right_led_3_off();
     switch (layer) {
       // TODO: Make this relevant to the ErgoDox EZ.
-        case 1:
-            ergodox_right_led_1_on();
-            break;
         case 2:
-            ergodox_right_led_2_on();
-            break;
+          ergodox_right_led_1_on();
+          break;
+        case 3:
+          ergodox_right_led_2_on();
+          break;
+        case 4:
+          ergodox_right_led_3_on();
+          break;
         default:
             // none
             break;
@@ -436,5 +440,4 @@ void matrix_scan_user(void) {
     }
 
 };
-
 

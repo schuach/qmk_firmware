@@ -1,10 +1,12 @@
 #include "../../config.h"
 
 // https://docs.qmk.fm/feature_common_shortcuts.html#permissive-hold
-/* #define PERMISSIVE_HOLD */
+#define PERMISSIVE_HOLD
 
 #undef TAPPING_TOGGLE
 #define TAPPING_TOGGLE  2
+
+#define TAPPING_TERM 200
 
 /*
  * Feature disable options
