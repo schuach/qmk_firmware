@@ -31,6 +31,9 @@ enum custom_keycodes {
   RGB_SLD
 };
 
+enum {
+  TD_CPC = 0
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
@@ -56,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
   [XOY] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
-        KC_NO,        DE_1,    DE_2,    DE_3,    DE_4,    DE_5,    OSL(FN),
+                         TD(TD_CPC),        DE_1,    DE_2,    DE_3,    DE_4,    DE_5,    OSL(FN),
         KC_TAB,       DE_X,    DE_DOT,  DE_O,    DE_COMM, DE_Y,    DE_LPRN,
         CTL_T(KC_ESC),DE_H,    DE_A,    DE_E,    DE_I,    DE_U,
         KC_LSFT,      DE_K,    DE_Q,    DE_AE,   DE_UE,   DE_OE,   DE_LBRC,
@@ -439,5 +442,32 @@ void matrix_scan_user(void) {
 
     }
 
+};
+
+void dance_copy_paste_cut (qk_tap_dance_state_t *state, void *user_data) {
+  switch (state->count) {
+  case 1:
+    register_code(KC_LCTL);
+    register_code(KC_INS);
+    unregister_code(KC_INS);
+    unregister_code(KC_LCTL);
+    break;
+  case 2:
+    register_code(KC_LSFT);
+    register_code(KC_INS);
+    unregister_code(KC_INS);
+    unregister_code(KC_LSFT);
+    break;
+  case 3:
+    register_code(KC_LSFT);
+    register_code(KC_DEL);
+    unregister_code(KC_DEL);
+    unregister_code(KC_LSFT);
+  }
+}
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+  // Tap once for A, twice for B
+  [TD_CPC] = ACTION_TAP_DANCE_FN(dance_copy_paste_cut)
 };
 
