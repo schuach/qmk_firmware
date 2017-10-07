@@ -34,7 +34,11 @@ enum custom_keycodes {
 };
 
 enum {
-  TD_CPC = 0
+  TD_CPC = 0,
+  TD_OPRN,
+  TD_CPRN,
+  TD_OBRC,
+  TD_CBRC
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -43,10 +47,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |Cp/Pst/C|   1  |   2  |   3  |   4  |   5  |  FN  |           | KRun |   6  |   7  |   8  |   9  |   0  |   -    |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Tab    |   X  |   .  |   O  |   ,  |   Y  |  (   |           |  *)  |   V  |   G  |   C  |   L  |   J  |   ß    |
+ * | Tab    |   X  |   .  |   O  |   ,  |   Y  |  (/{ |           |  )/} |   V  |   G  |   C  |   L  |   J  |   ß    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |Esc/Ctrl|   H  |   A  |   E  |   I  |   U  |------|           |------|   D  |   T  |   R  |   N  |   S  |Ctl/F   |
- * |--------+------+------+------+------+------|  [   |           |  *]  |------+------+------+------+------+--------|
+ * |--------+------+------+------+------+------|  [/< |           |  ]/> |------+------+------+------+------+--------|
  * | Leader |   K  |   Q  |   Ä  |   Ü  |   Ö  |      |           |      |   B  |   P  |   W  |   M  |MDIA/Z|RSft/Rtn|
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |Leader|   <  |   >  | lAlt | Del  |                                       | Bspc | Left | Down |  Up  |Right |
@@ -62,9 +66,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [XOY] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
         TD(TD_CPC),   DE_1,    DE_2,    DE_3,    DE_4,    DE_5,    OSL(FN),
-        KC_TAB,       DE_X,    DE_DOT,  DE_O,    DE_COMM, DE_Y,    DE_LPRN,
+        KC_TAB,       DE_X,    DE_DOT,  DE_O,    DE_COMM, DE_Y,    TD(TD_OPRN),
         CTL_T(KC_ESC),DE_H,    DE_A,    DE_E,    DE_I,    DE_U,
-        KC_LEAD,      DE_K,    DE_Q,    DE_AE,   DE_UE,   DE_OE,   DE_LBRC,
+        KC_LEAD,      DE_K,    DE_Q,    DE_AE,   DE_UE,   DE_OE,   TD(TD_OBRC),
         KC_LEAD,      DE_LESS, DE_MORE, KC_LALT, KC_DEL,
         // left thumb
                                                     OSM(MOD_LALT), KC_LGUI,
@@ -72,11 +76,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             TT(MOD4),  KC_LSFT,    KC_PGDN,
 
         // right hand
-        ALT_SPC, DE_6,    DE_7,    DE_8,    DE_9,    DE_0,    DE_MINS,
-        DE_RPRN, DE_V,    DE_G,    DE_C,    DE_L,    DE_J,    DE_SS,
-                 DE_D,    DE_T,    DE_R,    DE_N,    DE_S,    CTL_F,
-        DE_RBRC, DE_B,    DE_P,    DE_W,    DE_M,    MDIA_Z,  SFT_T(KC_ENT),
-                 KC_BSPC, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
+        ALT_SPC,     DE_6,    DE_7,    DE_8,    DE_9,    DE_0,    DE_MINS,
+        TD(TD_CPRN), DE_V,    DE_G,    DE_C,    DE_L,    DE_J,    DE_SS,
+                     DE_D,    DE_T,    DE_R,    DE_N,    DE_S,    CTL_F,
+        TD(TD_CBRC), DE_B,    DE_P,    DE_W,    DE_M,    MDIA_Z,  SFT_T(KC_ENT),
+                     KC_BSPC, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
         // right thumb
         OSM(MOD_RALT), CTL_T(KC_ESC),
         KC_HOME,
@@ -515,10 +519,77 @@ void dance_copy_paste_cut (qk_tap_dance_state_t *state, void *user_data) {
     unregister_code(KC_DEL);
     unregister_code(KC_LSFT);
   }
+};
+
+void dance_open_prn_cbr (qk_tap_dance_state_t *state, void *user_data) {
+  switch (state->count) {
+  case 1:
+    register_code(KC_LSFT);
+    register_code(KC_8);
+    unregister_code(KC_8);
+    unregister_code(KC_LSFT);
+    break;
+  case 2:
+    register_code(KC_RALT);
+    register_code(KC_7);
+    unregister_code(KC_7);
+    unregister_code(KC_RALT);
+  }
+}
+void dance_close_prn_cbr (qk_tap_dance_state_t *state, void *user_data) {
+  switch (state->count) {
+  case 1:
+    register_code(KC_LSFT);
+    register_code(KC_9);
+    unregister_code(KC_9);
+    unregister_code(KC_LSFT);
+    break;
+  case 2:
+    register_code(KC_RALT);
+    register_code(KC_0);
+    unregister_code(KC_0);
+    unregister_code(KC_RALT);
+  }
+}
+void dance_open_brc_abrc (qk_tap_dance_state_t *state, void *user_data) {
+  switch (state->count) {
+  case 1:
+    register_code(KC_RALT);
+    register_code(KC_8);
+    unregister_code(KC_8);
+    unregister_code(KC_RALT);
+    break;
+  case 2:
+    register_code(KC_NUBS);
+    unregister_code(KC_NUBS);
+  }
+}
+void dance_close_brc_abrc (qk_tap_dance_state_t *state, void *user_data) {
+  switch (state->count) {
+  case 1:
+    register_code(KC_RALT);
+    register_code(KC_9);
+    unregister_code(KC_9);
+    unregister_code(KC_RALT);
+    break;
+  case 2:
+    register_code(KC_LSFT);
+    register_code(KC_NUBS);
+    unregister_code(KC_NUBS);
+    unregister_code(KC_LSFT);
+  }
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-  // Tap once for A, twice for B
-  [TD_CPC] = ACTION_TAP_DANCE_FN(dance_copy_paste_cut)
+  // Tap once for copy, twice for paste, thrice for cut
+  [TD_CPC] = ACTION_TAP_DANCE_FN(dance_copy_paste_cut),
+  // tap once for an opening paren, twice for an opening curly brace
+  [TD_OPRN] = ACTION_TAP_DANCE_FN(dance_open_prn_cbr),
+  // tap once for an closing paren, twice for an closing curly brace
+  [TD_CPRN] = ACTION_TAP_DANCE_FN(dance_close_prn_cbr),
+  // tap once for an opening bracket, twice for an opening angle brace
+  [TD_OBRC] = ACTION_TAP_DANCE_FN(dance_open_brc_abrc),
+  // tap once for an closing bracket, twice for an closing angle brace
+  [TD_CBRC] = ACTION_TAP_DANCE_FN(dance_close_brc_abrc)
 };
 
