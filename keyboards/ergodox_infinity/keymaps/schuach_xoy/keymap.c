@@ -3,9 +3,11 @@
 #include "action_layer.h"
 #include "version.h"
 #include "keymap_german.h"
+#undef LEADER_TIMEOUT
+#define LEADER_TIMEOUT 500
 
 #define XOY  0   // default layer
-#define QWERTZ 1 // qwertz
+#define QWERT 1 // qwertz
 #define MOD3 2   // Neo Mod3
 #define MOD4 3   // Neo Mod4
 #define FN 4     // Function and Media Keys
@@ -45,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |Esc/Ctrl|   H  |   A  |   E  |   I  |   U  |------|           |------|   D  |   T  |   R  |   N  |   S  |Ctl/F   |
  * |--------+------+------+------+------+------|  [   |           |  *]  |------+------+------+------+------+--------|
- * | LShift |   K  |   Q  |   Ä  |   Ü  |   Ö  |      |           |      |   B  |   P  |   W  |   M  |MDIA/Z|RSft/Rtn|
+ * | Leader |   K  |   Q  |   Ä  |   Ü  |   Ö  |      |           |      |   B  |   P  |   W  |   M  |MDIA/Z|RSft/Rtn|
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |Leader|   <  |   >  | lAlt | Del  |                                       | Bspc | Left | Down |  Up  |Right |
  *   `----------------------------------'                                       `----------------------------------'
@@ -62,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TD(TD_CPC),   DE_1,    DE_2,    DE_3,    DE_4,    DE_5,    OSL(FN),
         KC_TAB,       DE_X,    DE_DOT,  DE_O,    DE_COMM, DE_Y,    DE_LPRN,
         CTL_T(KC_ESC),DE_H,    DE_A,    DE_E,    DE_I,    DE_U,
-        KC_LSFT,      DE_K,    DE_Q,    DE_AE,   DE_UE,   DE_OE,   DE_LBRC,
+        KC_LEAD,      DE_K,    DE_Q,    DE_AE,   DE_UE,   DE_OE,   DE_LBRC,
         KC_LEAD,      DE_LESS, DE_MORE, KC_LALT, KC_DEL,
         // left thumb
                                                     OSM(MOD_LALT), KC_LGUI,
@@ -81,49 +83,49 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_END,        OSL(MOD3),   KC_SPC
 
     ),
-/* Keymap 1: QWERTZ
+/* Keymap 1: QWERT
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * | Esc    |  1   |  2   |  3   |  4   |  5   | FN   |           |      |  6   |  7   |  8   |  9   |  0   |   -    |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * | Tab    |  Q   |  W   |  E   |  R   |  T   |      |           |      |  Z   |  U   |  I   |  O   |  P   |   Ü    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * | CAPS   |  A   |  S   |  D   |  F   |  G   |------|           |------|  H   |  J   |  K   |  L   |  Ö   |   Ä    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |  |   |      |      |      |           |      |      |      |      |      |      |        |
+ * | Lshft  |  Y   |  X   |  C   |  V   |  B   |      |           |      |  N   |  M   |  ,   |  .   |  -   |Rsft/Ret|
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |      |      |      |      |                                       |      |      |      |      |      |
+ *   | Lctl |  Gui |      |  Lalt|  Del |                                       | Bspc | Left | Down | Up   | Right|
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        |      |      |       |      |      |
+ *                                        | Mod 4| Gui  |       | Ralt |Ctl/Es|
  *                                 ,------|------|------|       |------+------+------.
- *                                 |      |      |      |       |      |      |      |
- *                                 |      |      |------|       |------|      |      |
- *                                 |      |      |      |       |      |      |      |
+ *                                 |      |      | Pgup |       | Home |      |      |
+ *                                 | Spc  | Shft |------|       |------| Mod 3| Spc  |
+ *                                 |      |      | Pgdn |       | End  |      |      |
  *                                 `--------------------'       `--------------------'
  */
-  [QWERTZ] = LAYOUT_ergodox(  // layer 1 : qwertz, should not be accessible from layer 0
+  [QWERT] = LAYOUT_ergodox(  // layer 1 : qwertz, should not be accessible from layer 0
         // left hand
-        KC_LEAD,      DE_1,    DE_2,    DE_3,    DE_4,    DE_5,    ______,
-        KC_TAB,       DE_X,    DE_DOT,  DE_O,    DE_COMM, DE_Y,    ______,
-        CTL_T(KC_ESC),DE_H,    DE_A,    DE_E,    DE_I,    DE_U,
-        KC_LSFT,      DE_K,    DE_Q,    DE_AE,   DE_UE,   DE_OE,   ______,
-        ______,       ______,  ______,  ______,  ______,
+        KC_ESC,       DE_1,    DE_2,    DE_3,    DE_4,    DE_5,    OSL(FN),
+        KC_TAB,       DE_Q,    DE_W,    DE_E,    DE_R,    DE_T,    ______,
+        KC_CAPS,      DE_A,    DE_S,    DE_D,    DE_F,    DE_G,
+        KC_LSFT,      DE_Y,    DE_X,    DE_C,    DE_V,    DE_B,   ______,
+        KC_LCTL,      KC_LGUI, KC_NO,   KC_LALT, KC_DEL,
         // left thumb
-                                                          ______,  KC_LGUI,
+                                                        TT(MOD4),  KC_LGUI,
                                                                    KC_PGUP,
-                                          TT(MOD4), SFT_T(KC_DEL), KC_PGDN,
+                                          KC_SPC,  SFT_T(KC_DEL),  KC_PGDN,
 
         // right hand
         ______,  DE_6,    DE_7,    DE_8,    DE_9,    DE_0,    DE_MINS,
-        ______,  DE_V,    DE_G,    DE_C,    DE_L,    DE_J,    DE_SS,
-                 DE_D,    DE_T,    DE_R,    DE_N,    DE_S,    CTL_T(DE_F),
+        ______,  DE_Z,    DE_U,    DE_I,    DE_O,    DE_P,    DE_UE,
+                 DE_H,    DE_J,    DE_K,    DE_L,    DE_OE,   CTL_T(DE_AE),
         ______,  DE_B,    DE_P,    DE_W,    DE_M,    DE_Z,    SFT_T(KC_ENT),
-        ______,  ______,  ______,  ______,  ______,
+        KC_BSPC, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
         // right thumb
-        KC_LALT, CTL_T(KC_ESC),
+        KC_RALT, CTL_T(KC_ESC),
         KC_HOME,
-        KC_END,  LT(MOD3, KC_BSPC),   KC_SPC
+        KC_END,  OSL(MOD3),   KC_SPC
 
     ),
 
@@ -220,7 +222,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |  F12   |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |------|           |------|      |      |      |      |      |        |
+ * |        |      |      |      |      |      |------|           |------|      | XOY  | QWERT|      |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
@@ -247,7 +249,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // right hand
        ______,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11,
        ______,  ______, ______, ______, ______, ______, KC_F12,
-                ______, ______, ______, ______, ______, ______,
+       ______,  DF(XOY),DF(QWERT), ______, ______, ______,
        ______,  ______, ______, ______, ______, ______, ______,
                         ______, ______, ______, ______, ______,
        RGB_TOG, RGB_SLD,
