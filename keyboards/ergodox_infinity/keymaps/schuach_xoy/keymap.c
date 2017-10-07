@@ -401,20 +401,25 @@ void matrix_scan_user(void) {
 
       SEQ_ONE_KEY(DE_P) {
         // paste
-        register_code(KC_LCTL);
-        register_code(DE_V);
-        unregister_code(DE_V);
-        unregister_code(KC_LCTL);
+        register_code(KC_LSFT);
+        register_code(KC_INS);
+        unregister_code(KC_INS);
+        unregister_code(KC_LSFT);
       }
-
       SEQ_ONE_KEY(DE_Y) {
         // copy
         register_code(KC_LCTL);
-        register_code(DE_C);
-        unregister_code(DE_C);
+        register_code(KC_INS);
+        unregister_code(KC_INS);
         unregister_code(KC_LCTL);
       }
-
+      SEQ_ONE_KEY(DE_D) {
+        // cut
+        register_code(KC_LSFT);
+        register_code(KC_DEL);
+        unregister_code(KC_DEL);
+        unregister_code(KC_LSFT);
+      }
       SEQ_TWO_KEYS(DE_D, DE_D) {
         // cut whole line
         register_code(KC_HOME);
@@ -423,10 +428,10 @@ void matrix_scan_user(void) {
         register_code(KC_END);
         unregister_code(KC_END);
         unregister_code(KC_LSFT);
-        register_code(KC_LCTL);
-        register_code(DE_X);
-        unregister_code(DE_X);
-        unregister_code(KC_LCTL);
+        register_code(KC_LSFT);
+        register_code(KC_DEL);
+        unregister_code(KC_DEL);
+        unregister_code(KC_LSFT);
       }
       SEQ_TWO_KEYS(DE_Y, DE_Y) {
         // copy whole line
@@ -437,9 +442,53 @@ void matrix_scan_user(void) {
         unregister_code(KC_END);
         unregister_code(KC_LSFT);
         register_code(KC_LCTL);
-        register_code(DE_C);
-        unregister_code(DE_C);
+        register_code(KC_INS);
+        unregister_code(KC_INS);
         unregister_code(KC_LCTL);
+      }
+      SEQ_TWO_KEYS(DE_Y, DE_A) {
+        // copy to the beginning of the line
+        register_code(KC_LSFT);
+        register_code(KC_HOME);
+        unregister_code(KC_HOME);
+        unregister_code(KC_LSFT);
+        register_code(KC_LCTL);
+        register_code(KC_INS);
+        unregister_code(KC_INS);
+        unregister_code(KC_LCTL);
+      }
+      SEQ_TWO_KEYS(DE_Y, DE_E) {
+        // copy to the end of the line
+        register_code(KC_LSFT);
+        register_code(KC_END);
+        unregister_code(KC_END);
+        unregister_code(KC_LSFT);
+        register_code(KC_LCTL);
+        register_code(KC_INS);
+        unregister_code(KC_INS);
+        unregister_code(KC_LCTL);
+      }
+      SEQ_TWO_KEYS(DE_D, DE_A) {
+        // cut to the beginning of the line
+        register_code(KC_LSFT);
+        register_code(KC_HOME);
+        unregister_code(KC_HOME);
+        unregister_code(KC_LSFT);
+        register_code(KC_LSFT);
+        register_code(KC_DEL);
+        unregister_code(KC_DEL);
+        unregister_code(KC_LSFT);
+      }
+      SEQ_TWO_KEYS(DE_D, DE_E) {
+        // cut to the end of the line
+        register_code(KC_LSFT);
+        register_code(KC_END);
+        unregister_code(KC_END);
+        unregister_code(KC_LSFT);
+        register_code(KC_LSFT);
+        register_code(KC_DEL);
+        unregister_code(KC_DEL);
+        unregister_code(KC_LSFT);
       }
 
     }
