@@ -4,7 +4,7 @@
 #include "version.h"
 #include "keymap_german.h"
 #undef LEADER_TIMEOUT
-#define LEADER_TIMEOUT 500
+#define LEADER_TIMEOUT 750
 
 #define XOY  0   // default layer
 #define QWERT 1 // qwertz
@@ -38,7 +38,8 @@ enum {
   TD_OPRN,
   TD_CPRN,
   TD_OBRC,
-  TD_CBRC
+  TD_CBRC,
+  TD_QUOT
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -51,9 +52,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |Esc/Ctrl|   H  |   A  |   E  |   I  |   U  |------|           |------|   D  |   T  |   R  |   N  |   S  |Ctl/F   |
  * |--------+------+------+------+------+------|  [/< |           |  ]/> |------+------+------+------+------+--------|
- * | Leader |   K  |   Q  |   Ä  |   Ü  |   Ö  |      |           |      |   B  |   P  |   W  |   M  |MDIA/Z|RSft/Rtn|
+ * | Leader |   K  |   Q  |   Ä  |   Ü  |   Ö  |      |           |      |   B  |   P  |   W  |   M  |MDIA/Z| Enter  |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |Leader|   <  |   >  | lAlt | Del  |                                       | Bspc | Left | Down |  Up  |Right |
+ *   | "/'  |   <  |   >  | lAlt | Del  |                                       | Bspc | Left | Down |  Up  |Right |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        | lAlt | LGui |       | Alt  |Ctrl/Esc|
@@ -69,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,       DE_X,    DE_DOT,  DE_O,    DE_COMM, DE_Y,    TD(TD_OPRN),
         CTL_T(KC_ESC),DE_H,    DE_A,    DE_E,    DE_I,    DE_U,
         KC_LEAD,      DE_K,    DE_Q,    DE_AE,   DE_UE,   DE_OE,   TD(TD_OBRC),
-        KC_LEAD,      DE_LESS, DE_MORE, KC_LALT, KC_DEL,
+        TD(TD_QUOT),  DE_LESS, DE_MORE, KC_LALT, KC_DEL,
         // left thumb
                                                     OSM(MOD_LALT), KC_LGUI,
                                                                    KC_PGUP,
@@ -79,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ALT_SPC,     DE_6,    DE_7,    DE_8,    DE_9,    DE_0,    DE_MINS,
         TD(TD_CPRN), DE_V,    DE_G,    DE_C,    DE_L,    DE_J,    DE_SS,
                      DE_D,    DE_T,    DE_R,    DE_N,    DE_S,    CTL_F,
-        TD(TD_CBRC), DE_B,    DE_P,    DE_W,    DE_M,    MDIA_Z,  SFT_T(KC_ENT),
+        TD(TD_CBRC), DE_B,    DE_P,    DE_W,    DE_M,    MDIA_Z,  KC_ENT,
                      KC_BSPC, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
         // right thumb
         OSM(MOD_RALT), CTL_T(KC_ESC),
@@ -590,6 +591,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   // tap once for an opening bracket, twice for an opening angle brace
   [TD_OBRC] = ACTION_TAP_DANCE_FN(dance_open_brc_abrc),
   // tap once for an closing bracket, twice for an closing angle brace
-  [TD_CBRC] = ACTION_TAP_DANCE_FN(dance_close_brc_abrc)
+  [TD_CBRC] = ACTION_TAP_DANCE_FN(dance_close_brc_abrc),
+  // tap once for double quote, twice for single quote
+  [TD_QUOT] = ACTION_TAP_DANCE_DOUBLE(DE_DQOT, DE_QUOT)
 };
 
