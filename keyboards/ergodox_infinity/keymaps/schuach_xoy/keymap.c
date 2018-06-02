@@ -21,6 +21,7 @@
 #define ALT_TAB LALT(KC_TAB)
 #define SALT_TB S(LALT(KC_TAB))
 #define TRM_QKE KC_F12
+#define KRUNNER LALT(KC_SPC)
 
 #define ______ KC_TRNS
 
@@ -48,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |Cp/Pst/C|   1  |   2  |   3  |   4  |   5  |  FN  |           | F12  |   6  |   7  |   8  |   9  |   0  |   -    |
+ * |Cp/Pst/C|   1  |   2  |   3  |   4  |   5  |KRunnr|           | F12  |   6  |   7  |   8  |   9  |   0  |   -    |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * | Tab    |   X  |   .  |   O  |   ,  |   Y  |  (/{ |           |  )/} |   V  |   G  |   C  |   L  |   J  |   ß    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -68,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
   [XOY] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
-        TD(TD_CPC),   DE_1,    DE_2,    DE_3,    DE_4,    DE_5,    OSL(FN),
+        TD(TD_CPC),   DE_1,    DE_2,    DE_3,    DE_4,    DE_5,    KRUNNER,
         KC_TAB,       DE_X,    DE_DOT,  DE_O,    DE_COMM, DE_Y,    TD(TD_OPRN),
         CTL_T(KC_ESC),DE_H,    DE_A,    DE_E,    DE_I,    DE_U,
         KC_LEAD,      DE_K,    DE_Q,    DE_AE,   DE_UE,   DE_OE,   TD(TD_OBRC),
