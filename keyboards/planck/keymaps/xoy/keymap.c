@@ -33,12 +33,12 @@
 #define N2_MINS KC_SLSH   // -
 #define N2_GRAV S(KC_EQL) // è dead
 #define N2_AKUT KC_EQL    // é dead
-#define N2_SZ	KC_MINS   // ß
-#define N2_Y	KC_Z      // y
-#define N2_Z	KC_Y      // z
+#define N2_SZ   KC_MINS   // ß
+#define N2_Y    KC_Z      // y
+#define N2_Z    KC_Y      // z
 #define N2_UE   KC_LBRC   // ü
-#define N2_OE	KC_SCLN   // ö
-#define N2_AE	KC_QUOT   // ä
+#define N2_OE   KC_SCLN   // ö
+#define N2_AE   KC_QUOT   // ä
 
 // Shift-layer
 #define N2_RING S(KC_GRV)       // °
@@ -107,7 +107,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_XOY] = { /* XOY */
   {LT(_SYS,KC_TAB), KC_X,    KC_DOT,    KC_O,    KC_COMM,  N2_Y,          KC_V,           KC_G,           KC_C,    KC_L,    KC_J,  N2_SZ         },
   {CTL_T(KC_ESC),   KC_H,    KC_A,      KC_E,    KC_I,     KC_U,          KC_D,           KC_T,           KC_R,    KC_N,    KC_S,  CTL_T(KC_F)   },
-  {KC_LEAD,         KC_K,    KC_Q,      N2_AE,   N2_UE,    N2_OE,         KC_B,           KC_P,           KC_W,    KC_M,    N2_Z,  SFT_T(KC_ENT) },
+  {KC_LGUI,         KC_K,    KC_Q,      N2_AE,   N2_UE,    N2_OE,         KC_B,           KC_P,           KC_W,    KC_M,    N2_Z,  SFT_T(KC_ENT) },
   {KC_HOME,         KC_END,  KC_LGUI,   KC_LALT, TT(_N4),  SFT_T(KC_DEL), LT(_N3,KC_BSPC),LT(_SP,KC_SPC), LT(_KI,KC_LEFT), KC_DOWN, KC_UP, KC_RGHT       }
 },
 [_QW] = { /* Qwertz/Software-Neo2 */

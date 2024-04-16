@@ -57,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|  [/< |           |  ]/> |------+------+------+------+------+--------|
  * | Leader |   K  |   Q  |   Ä  |   Ü  |   Ö  |      |           |      |   B  |   P  |   W  |   M  |MDIA/Z| Enter  |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | "/'  |   <  |   >  |  "/' | Del  |                                       | Bspc | Left | Down |  Up  |Right |
+ *   | Prnt |   <  |   >  |  "/' | Del  |                                       | Bspc | Left | Down |  Up  |Right |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        | lAlt | LGui |       | Alt  |Ctrl/Esc|
@@ -72,8 +72,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TD(TD_CPC),   DE_1,    DE_2,    DE_3,    DE_4,    DE_5,    KRUNNER,
         KC_TAB,       DE_X,    DE_DOT,  DE_O,    DE_COMM, DE_Y,    TD(TD_OPRN),
         CTL_T(KC_ESC),DE_H,    DE_A,    DE_E,    DE_I,    DE_U,
-        KC_LEAD,      DE_K,    DE_Q,    DE_AE,   DE_UE,   DE_OE,   TD(TD_OBRC),
-        TD(TD_QUOT),  DE_LESS, DE_MORE, TD(TD_QUOT), KC_DEL,
+        KC_LGUI,      DE_K,    DE_Q,    DE_AE,   DE_UE,   DE_OE,   TD(TD_OBRC),
+        KC_PSCR,      DE_LESS, DE_MORE, TD(TD_QUOT), KC_DEL,
         // left thumb
                                                     OSM(MOD_LALT), KC_LGUI,
                                                                    KC_PGUP,
